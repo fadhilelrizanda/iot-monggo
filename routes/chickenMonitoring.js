@@ -12,6 +12,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/latest", async (req, res) => {
+  try {
+    const chickenM = await chickenMonitoring.find().sort({ _id: -1 }).limit(1);
+    res.json(chickenM);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Creating one
 router.post("/", async (req, res) => {
   const chickenM = new chickenMonitoring({
